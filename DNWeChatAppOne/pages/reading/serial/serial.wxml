@@ -1,0 +1,28 @@
+
+<view class="container">
+  <view class='eassy'>
+    <view class='essay-header'>
+      <view class='essay-author'>
+        <image class='essay-author-avator' src='{{serial.author.web_url}}'></image>
+        <view class='essay-author-username'>
+          <text>{{serial.author.user_name}}</text>
+        </view>
+        <view class='essay-makettime'>
+          <text>{{serial.makettime}}</text>
+        </view>
+      </view>
+   </view>
+
+      <view class='essay-body'>
+        <view class='essay-title'>
+          <text>{{serial.title}}</text>
+        </view>
+        <view class='essay-content'>
+          <text>{{serial.content}}</text>
+        </view>
+        <view class='essay-author-introduce'>
+          <text>{{serial.charge_edt}}</text>
+        </view>
+      </view>
+    </view>
+</view>

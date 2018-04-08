@@ -1,0 +1,47 @@
+
+
+.question-header{
+  padding: 15px;
+}
+
+.question-header-question-title{
+  font-size: 18px;
+  color: #666;
+  float: left;
+}
+
+.question-header-question-content{
+  margin-top: 20px;
+  color: #999;
+  float: left;
+  font-size: 14px;
+}
+
+.caverLine{
+  height: 1px;
+  color: #dae2e3;
+  margin-top: 20px;
+  background-color: #dae2e3;
+}
+
+.question-body-makettime{
+  float: right;
+  color: #666;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.question-body-content{
+  float: left;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.question-charge_edt{
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #3bf;
+}

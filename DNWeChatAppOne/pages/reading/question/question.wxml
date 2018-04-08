@@ -1,0 +1,22 @@
+
+<view class="container">
+  <view class='question-header'>
+    <view class='question-header-question-title'>
+      <text>{{question.question_title}}</text>
+    </view>
+    <view class='question-header-question-content'>
+      <text>{{question.question_content}}</text>
+      <view class='caverLine'></view>
+    </view>
+
+    <view class='question-body-makettime'>
+      <text>{{question.question_makettime}}</text>
+    </view>
+
+    <view class='question-body-content'>
+      <text>{{question.answer_content}}</text>
+    </view>
+
+    <view class='question-charge_edt'>{{question.charge_edt}}</view>
+  </view>
+</view>
