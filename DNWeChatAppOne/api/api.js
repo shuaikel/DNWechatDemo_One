@@ -30,6 +30,7 @@ const getVolById = (params) => wxRequest(params, host + '/api/hp/detail/' + para
 const getVolIdList = (params) => wxRequest(params, host + '/api/hp/idlist/0')
 const getVolsByMonth = (params) => wxRequest(params, host + '/api/hp/bymonth/' + params.query.month)
 const getVolDetailById = (params) => wxRequest(params, host + '/api/hp/detail/' + params.query.id)
+const getIndexChannelList = (params) => wxRequest(params, host + '/api/channel/one/0/%E5%B9%BF%E5%B7%9E%E5%B8%82?platform=ios&sign=330ec0ea8563657d15e14952a4bb26e1&user_id=&uuid=8EA25EEF-AA63-486B-86F6-3138396A5402&version=v4.5.3')
 
 // Reading
 const getCarousel = (params) => wxRequest(params, host + '/api/reading/carousel')
@@ -52,4 +53,5 @@ module.exports = {
   getSerialById,
   getQuestionById,
   getArticlesByMonth,
+  getIndexChannelList,
 }

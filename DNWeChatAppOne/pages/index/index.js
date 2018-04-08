@@ -11,7 +11,8 @@ Page({
    */
   data: {
     vols : [],
-    current: 0
+    current: 0,
+    content_list : [],
   },
 
   /**
@@ -25,7 +26,31 @@ Page({
           this.getVols(idList)
         }
       }
+    });
+    this.getIndexChannelList()
+  },
+
+  // 加载首页推荐数据
+  getIndexChannelList : function(options){
+    api.getIndexChannelList({
+      success:(res)=>{
+        if (res.data.res === 0){
+          let data = res.data.data.content_list
+          this.getContent_List(data)
+          this.setData({ content_list:data})
+          debugger
+          console.log('contentlist info' + this.data.content_list)
+        }
+      }
     })
+  },
+
+  getContent_List: function(content_list) {
+    let contentList = this.data.content_list
+    for(var i = 0;i<contentList.length;i++){
+      let contentItem = contentList[i]
+      contentItem.post_date = util.formatMakettime(vol.post_date)
+    }
   },
 
   getVols: function (idList) {

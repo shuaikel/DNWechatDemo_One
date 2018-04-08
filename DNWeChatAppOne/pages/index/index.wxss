@@ -33,14 +33,16 @@
 .vol-content{
   margin-top: 30rpx;
   padding: 0 5rpx;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.4;
 }
 
 .vol-content-text{
   width: 100%;
-  min-height: 200rpx;
+  min-height: 100rpx;
   display: inline-block;
+  text-align: center;
+  color: #333;
 }
 
 .vol-makettime{
