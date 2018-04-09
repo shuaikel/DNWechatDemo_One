@@ -1,12 +1,32 @@
 <!--index.wxml-->
-<view class="container">
-  <swiper class='vol-swiper' current='{{current}}' bindchange='handleChange'>
-    <block wx:for="{{vols}}" wx:for-index="idx" wx:key="{{hpcontent_id}}">
-      <swiper-item class="vol-swipe-item">
-        <import src="templates/volItem.wxml" />
-        <template is="vol-item" data="{{item: item}}" />
-      </swiper-item>
-    </block>
-    <swiper-item></swiper-item>
-  </swiper>
-</view>
+ <view class="container"> 
+    <swiper class='vol-swiper' current='{{current}}' bindchange='handleChange'>
+      <block wx:for="{{['1','2','3']}}" wx:for-index="idx" wx:key="{{id}}">
+        <swiper-item class="vol-swipe-item">
+            <scroll-view class='articles' scroll-y="true">
+                <block wx:for="{{['1','2','3','4']}}" wx:for-index="idx" wx:key="{{id}}">
+                    <!-- <swiper-item> -->
+                       <view class='contentListItem-card'>  
+                         <import src="templates/volItem.wxml" />
+                         <template is="vol-item" data="{{item: content_Lists[current]['content_list'][idx]}}" /> 
+                     </view>    
+                    <!-- </swiper-item> -->
+                </block>
+            </scroll-view>  
+          <!-- <view class='subSwiperContainer'>
+            <swiper class='subSwiper'  current='{{current}}' vertical='true' style='height:100%'>
+                <block wx:for="{{content_Lists[current]['content_list']}}" wx:for-index="idx" wx:key="{{id}}">
+                    <swiper-item>
+                      <view class='contentListItem-card'>  
+                         <import src="templates/volItem.wxml" />
+                        <template is="vol-item" data="{{item: content_Lists[current]['content_list'][idx]}}" /> 
+                     </view>   
+                    </swiper-item>
+
+                </block>
+            </swiper>
+          </view> -->
+        </swiper-item>
+      </block>
+    </swiper>
+ </view> 

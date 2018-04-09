@@ -1,16 +1,20 @@
 /**index.wxss**/
 
 .vol-swiper{
-  height: 100%
+  height: 100%;
 }
-
+.articles{
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
 .vol-swipe-item{
   padding: 25rpx;
   box-sizing: border-box;
 }
 
 .vol-card{
-  padding: 20rpx;
+  padding: 0rpx;
   border: 1px solid #ebebeb;
   border-radius: 3px;
   box-shadow: 1px 1px 1px #ebebeb
@@ -22,8 +26,9 @@
 
 .vol-meta{
   padding: 10rpx 5rpx;
-  font-size: 12px;
+  font-size: 10px;
   color: #888;
+  text-align: center;
 }
 
 .vol-author{
@@ -46,7 +51,44 @@
 }
 
 .vol-makettime{
-  font-size: 12px;
+  font-size: 10px;
   color: #888;
-  text-align: right;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.contentListItem-card{
+  margin: 0px;
+}
+
+.contentListItem-card-no-top{
+  margin-top: 10px;
+}
+
+.vol-index{
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+
+.bottom-action-view{
+  height: 120px;
+  background: #999;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 10
+}
+
+
+.subSwiperContainer{
+  background-color: green;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.subSwiper{
+  background-color: royalblue;
+  height: 100%;
 }
