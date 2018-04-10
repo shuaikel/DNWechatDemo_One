@@ -2,14 +2,14 @@
 
 .vol-swiper{
   height: 100%;
+  background-color: red;
 }
 .articles{
   width: 100%;
   height: 100%;
-  background-color: red;
+  background-color: #f3f3f3;
 }
 .vol-swipe-item{
-  padding: 25rpx;
   box-sizing: border-box;
 }
 

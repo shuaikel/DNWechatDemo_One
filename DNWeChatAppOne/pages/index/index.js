@@ -12,7 +12,6 @@ Page({
   data: {
     vols : [],
     current: 0,
-    content_list : [],
     content_Lists : [],
     content_Channel_DateLists: ['0','2018-04-08'],
   },
@@ -22,24 +21,29 @@ Page({
    */
   onLoad: function () {
 
-
-    api.getVolIdList({
-      success:(res) => {
-        if (res.data.res === 0){
-          let idList = res.data.data
-          this.getVols(idList)
-        }
-      }
-    });     
+    var that = this;
+    // api.getVolIdList({
+    //   success:(res) => {
+    //     if (res.data.res === 0){
+    //       let idList = res.data.data
+    //       this.getVols(idList)
+    //     }
+    //   }
+    // });     
     this.getChannelDataInfo(this.data.content_Channel_DateLists)
-    let timeFormatter = new Date()
-    let time = this.getChannelFormatDate(timeFormatter)
+    // let timeFormatter = new Date()
+    // let time = this.getChannelFormatDate(timeFormatter)
     // console.log("current time info:" + time)
+    // for (var i = 0; i < this.data.content_Channel_DateLists.length;i++){
+    //   var strArr = new Array(this.data.content_Channel_DateLists[i])
+    //   this.getChannelDataInfo(strArr)
+    // }
   },
 
   getChannelDataInfo : function (dataLists){
-    let content_Lists = this.data.content_Lists
-
+    var that = this;
+    let content_Lists = that.data.content_Lists
+    
     if (dataLists.length > 0) {
       api.getIndexChannelList({
         query: {
@@ -49,16 +53,17 @@ Page({
           // console.log('request time info:'+dataLists)
           if (res.data.res === 0) {
             let data = res.data.data.content_list
-
-            this.getContent_List(data)
+            that.getContent_List(data)
             content_Lists.push(res.data.data)
+            that.setData({ content_Lists })
+            console.log('content item list length' + that.data.content_Lists.length);
           }
-          this.getChannelDataInfo(dataLists)
+          that.getChannelDataInfo(dataLists)
         }
       })
     } else { 
-      let tt = content_Lists.sort(this.compare('id'))
-      this.setData({ content_Lists:tt})
+      // let tt = content_Lists.sort(this.compare('id'))
+      // this.setData({ content_Lists: [1,2,3,4,5]})
     }
   },
 
@@ -71,23 +76,25 @@ Page({
   },
 
   // 加载首页推荐数据
-  getIndexChannelList: function (channelDate){
-    api.getIndexChannelList({
-      query:{
-        channelData : channelDate
-      },
-      success:(res)=>{
-        if (res.data.res === 0){
-          let data = res.data.data.content_list
-          this.getContent_List(data)
-          let tempContent_list = this.data.content_Lists
-          tempContent_list.push(res.data.data)
-          this.setData({ content_Lists: tempContent_list})
-        }
-      }
-    })
+  // getIndexChannelList: function (channelDate){
+  //   api.getIndexChannelList({
+  //     query:{
+  //       channelData : channelDate
+  //     },
+  //     success:(res)=>{
+  //       if (res.data.res === 0){
+  //         let data = res.data.data.content_list
+  //         this.getContent_List(data)
+  //         let tempContent_list = this.data.content_Lists
+  //         tempContent_list.push(res.data.data)
+  //         this.setData({ content_Lists: tempContent_list})
+  //       }
+  //     }
+  //   })
+  // },
+  bindscrolltolowerAction:function(e){
+    console.log('bindscrolltolowerAction');
   },
-
   getContent_List: function(content_list) {
     
     let contentList = content_list
@@ -144,14 +151,14 @@ Page({
     this.setData({ current })
     if (current === volsLength-1) {
       let contentItem = this.data.content_Lists[volsLength-1]
-      this.setData({
-        current: current
-      })
       let loadTime = contentItem.date
       let loadTimeDate = new Date(loadTime)
       let channelLoadTime = this.getChannelFormatDate(loadTimeDate)
       this.data.content_Channel_DateLists.push(channelLoadTime)
       this.getChannelDataInfo(this.data.content_Channel_DateLists)
+      this.setData({
+        current: current
+      })
     }
   },
 
