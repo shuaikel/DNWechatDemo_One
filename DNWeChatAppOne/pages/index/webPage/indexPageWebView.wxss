@@ -1,0 +1,64 @@
+
+
+
+.eassy{
+  padding: 15px;
+}
+
+.essay-author{
+  display: inline-block;
+  width: 80%;
+  font-size: 12px;
+  font-weight: 200;
+  margin-bottom: 10px;
+}
+
+.essay-author-avator{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  float: left;
+  margin-right: 15rpx;
+}
+
+.essay-author-username{
+  color: #3395FF;
+  padding: 5px;
+}
+
+.essay-makettime{
+  color: #888;
+  margin-top: 3px;
+}
+
+.essay-audio{
+  float: right;
+}
+
+.essay-play-img{
+  width: 25px;
+  height: 25px;
+}
+
+.essay-play-text{
+  position: relative;
+  top: -8px;
+  font-size: 12px;
+}
+
+.essay-title {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #3395FF;
+}
+
+.essay-content{
+  font-size: 15px;
+  color: #666;
+}
+
+.essay-author-introduce{
+  color: #333;
+  font-size: 12px;
+  margin-top: 20px;
+}

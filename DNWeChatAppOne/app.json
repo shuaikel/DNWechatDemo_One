@@ -6,7 +6,9 @@
     "pages/movie/movie",
     "pages/reading/essay/essay",
     "pages/reading/serial/serial",
-    "pages/reading/question/question"
+    "pages/reading/question/question",
+    "pages/index/webPage/indexPageWebView",
+    "pages/index/webPage/indexPageMusicWebView"
   ],
   "window":{
     "backgroundTextStyle":"light",

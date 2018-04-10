@@ -1,0 +1,15 @@
+
+
+<swiper current="{{currentTab}}" 
+        style="height:{{winHeight - 31}}px"  
+        class="swiper-box" 
+        duration="300">
+  <!-- 已承担 -->
+  <swiper-item class="swiper-items">
+    <scroll-view scroll-x="false" scroll-y="true" class='scroll-views' bindscrolltolower="bindscrolltolowerAction">
+        <block wx:for="{{items}}" wx:key="col_{{index}}"> 
+          <template is="undertookCard" data="{{...item}}"/>
+       </block>  
+    </scroll-view>
+  </swiper-item> 
+</swiper>

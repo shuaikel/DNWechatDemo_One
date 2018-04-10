@@ -13,36 +13,74 @@ Page({
     vols : [],
     current: 0,
     content_Lists : [],
-    content_Channel_DateLists: ['0','2018-04-08'],
+    content_Channel_DateLists: ['0','2018-04-09'],
+  },
+
+  /**
+ * 生命周期函数--监听页面显示
+ */
+  onShow: function () {
+  },
+
+  contentItemTapAction : function (e){
+    let id = e.currentTarget.dataset.contentmodel.content_id
+    let sourceID = e.currentTarget.dataset.contentmodel.id
+    let category = e.currentTarget.dataset.contentmodel.category
+    let typeInfo;
+    switch (category) {
+      case "2": {
+        typeInfo = "serialcontent"
+      } break;
+      case "1": {
+        typeInfo = "essay"
+      } break;
+      case "3": {
+        typeInfo = "question"
+      } break;
+      case "4": {
+        typeInfo = "music"
+      } break;
+      case "5": {
+        typeInfo = "movie"
+      } break;
+      case "8" : {
+        typeInfo = "radio"
+      }break;
+      default :{
+        typeInfo = ""
+      }
+      }
+    if (category === "4" || category === "5"){
+      wx.navigateTo({
+        url: 'webPage/indexPageMusicWebView?type=' + typeInfo + '&sourceID=' + sourceID + '&id=' + id,
+      })
+    }else if(category === "8"){
+        console.log("play radio");
+        const innerAudioContext = wx.createInnerAudioContext()
+        innerAudioContext.autoplay = true
+        innerAudioContext.src = e.currentTarget.dataset.contentmodel.audio_url;
+        innerAudioContext.onPlay(() => {
+          console.log('开始播放')
+        })
+    }else{
+    wx.navigateTo({
+      url: 'webPage/indexPageWebView?type=' + typeInfo + '&sourceID=' + sourceID+'&id='+id
+    })
+    }
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-
-    var that = this;
-    // api.getVolIdList({
-    //   success:(res) => {
-    //     if (res.data.res === 0){
-    //       let idList = res.data.data
-    //       this.getVols(idList)
-    //     }
-    //   }
-    // });     
+    var that = this;   
     this.getChannelDataInfo(this.data.content_Channel_DateLists)
-    // let timeFormatter = new Date()
-    // let time = this.getChannelFormatDate(timeFormatter)
-    // console.log("current time info:" + time)
-    // for (var i = 0; i < this.data.content_Channel_DateLists.length;i++){
-    //   var strArr = new Array(this.data.content_Channel_DateLists[i])
-    //   this.getChannelDataInfo(strArr)
-    // }
   },
 
   getChannelDataInfo : function (dataLists){
     var that = this;
-    let content_Lists = that.data.content_Lists
+    var content_ListsTemp = this.data.content_Lists
     
     if (dataLists.length > 0) {
       api.getIndexChannelList({
@@ -53,10 +91,12 @@ Page({
           // console.log('request time info:'+dataLists)
           if (res.data.res === 0) {
             let data = res.data.data.content_list
-            that.getContent_List(data)
-            content_Lists.push(res.data.data)
-            that.setData({ content_Lists })
-            console.log('content item list length' + that.data.content_Lists.length);
+            // that.getContent_List(data)
+            content_ListsTemp.push(res.data.data)
+              // debugger
+            this.setData({ content_Lists: content_ListsTemp})
+         
+            console.log('content item list length' + that.data.content_Lists.length + ';dataLists' + dataLists.length);
           }
           that.getChannelDataInfo(dataLists)
         }
@@ -76,22 +116,23 @@ Page({
   },
 
   // 加载首页推荐数据
-  // getIndexChannelList: function (channelDate){
-  //   api.getIndexChannelList({
-  //     query:{
-  //       channelData : channelDate
-  //     },
-  //     success:(res)=>{
-  //       if (res.data.res === 0){
-  //         let data = res.data.data.content_list
-  //         this.getContent_List(data)
-  //         let tempContent_list = this.data.content_Lists
-  //         tempContent_list.push(res.data.data)
-  //         this.setData({ content_Lists: tempContent_list})
-  //       }
-  //     }
-  //   })
-  // },
+  getIndexChannelList: function (channelDate){
+    api.getIndexChannelList({
+      query:{
+        channelData : channelDate
+      },
+      success:(res)=>{
+        if (res.data.res === 0){
+          let data = res.data.data.content_list
+          // this.getContent_List(data)
+          let tempContent_list = this.data.content_Lists
+          tempContent_list.push(res.data.data)
+          this.setData({ content_Lists: tempContent_list})
+        }
+      }
+    })
+  },
+
   bindscrolltolowerAction:function(e){
     console.log('bindscrolltolowerAction');
   },
@@ -143,10 +184,10 @@ Page({
       this.setData({ vols })
     }
   },
+
   handleChange: function (e) {
     let current = e.detail.current
     let volsLength = this.data.content_Lists.length
-    
     console.log("current page index" + current + 'volsLength' + volsLength)
     this.setData({ current })
     if (current === volsLength-1) {
@@ -197,6 +238,35 @@ Page({
     }
     var currentdate = year + seperator1 + month + seperator1 + strDate;
     return currentdate;
-  }
+  },
+
+  bindscrolltoupperAction: function (event){
+    console.log('bindscrolltoupperAction' + event.detail)
+  },
+  catchtouchmoveAction:function(e){
+    console.log('catchtouchmoveAction');
+  },
+
+  //滑  
+  get_index: function (e) {
+
+    var crash_current = e.detail.current;
+    if (crash_current === this.data.content_Lists.length - 1) {
+      console.log('muisc current index ' + crash_current)
+      // let tempData = this.data.tab_tite_data;
+      // tempData.push({ "name": "1", "color": "orange", })
+      // this.setData({
+      //   tab_tite_data: tempData})
+      let contentItem = this.data.content_Lists[crash_current]
+      let loadTime = contentItem.date
+      let loadTimeDate = new Date(loadTime)
+      let channelLoadTime = this.getChannelFormatDate(loadTimeDate)
+      console.log('last page time info:' + channelLoadTime + 'loadTimeDate' + loadTimeDate)
+      this.getIndexChannelList(channelLoadTime)
+    }
+    this.setData({
+      current: e.detail.current,
+    });
+  },
 
 })

@@ -2,7 +2,10 @@
 
 .vol-swiper{
   height: 100%;
-  background-color: red;
+  background-color: f3f3f3;
+  display: block;
+  overflow: hidden;
+  width: 100%;
 }
 .articles{
   width: 100%;
@@ -10,14 +13,15 @@
   background-color: #f3f3f3;
 }
 .vol-swipe-item{
-  box-sizing: border-box;
+  height: 100%;
 }
 
 .vol-card{
   padding: 0rpx;
-  border: 1px solid #ebebeb;
+  border: 1rpx solid lightgrey;
   border-radius: 3px;
-  box-shadow: 1px 1px 1px #ebebeb
+  box-shadow: 1px 1px 1px #ebebeb;
+  margin-top: 10px;
 }
 
 .vol-picture{
@@ -91,4 +95,27 @@
 .subSwiper{
   background-color: royalblue;
   height: 100%;
+}
+
+
+
+
+.swiper-box{ 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden;
+}  
+.swiper-items{
+  height: 100%;
+}
+.scroll-views{
+  height: 100%;
+  background-color: f3f3f3;
+}
+
+.movieItem{
+  height: 100px;
+  width: 100%;
+  background-color: brown;
 }

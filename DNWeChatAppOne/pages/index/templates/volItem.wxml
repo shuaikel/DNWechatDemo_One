@@ -1,5 +1,5 @@
 <template name="vol-item">
-  <view class="vol-card">
+  <view class="vol-card" bindtap='contentItemTapAction' data-contentModel="{{item}}">
     <image class="vol-picture" src="{{item.img_url}}" mode="aspectFill"></image>
     <view class="vol-meta">
       <text class="vol-number">{{item.title + " | " + item.pic_info}}</text>

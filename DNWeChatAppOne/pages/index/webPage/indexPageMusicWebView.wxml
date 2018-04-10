@@ -1,0 +1,6 @@
+
+
+
+<view class="container">
+ <web-view src="{{serial.web_url}}"></web-view>
+</view> 
