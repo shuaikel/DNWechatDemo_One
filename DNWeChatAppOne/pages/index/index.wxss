@@ -119,3 +119,8 @@
   width: 100%;
   background-color: brown;
 }
+
+.conetntSwiperItem{
+  display: inline-block;
+  position: relative;
+}

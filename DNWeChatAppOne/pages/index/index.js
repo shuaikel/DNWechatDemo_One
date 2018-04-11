@@ -13,13 +13,42 @@ Page({
     vols : [],
     current: 0,
     content_Lists : [],
-    content_Channel_DateLists: ['0','2018-04-09'],
+    content_Channel_DateLists: ['0','2018-04-10'],
+    current_load_Date : ''
   },
-
+  //获取当前时间，格式YYYY-MM-DD
+  getNowFormatDate : function () {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if(month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+        if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+  },
   /**
  * 生命周期函数--监听页面显示
  */
   onShow: function () {
+    let nowdate = this.getNowFormatDate()
+    var arr = nowdate.split('-');
+    var year = arr[0]; //获取当前日期的年份  
+    var month = arr[1]; //获取当前日期的月份  
+    var day = arr[2]; //获取当前日期的日  
+    var days = new Date(year, month, day); 
+
+    this.setData({ current_load_Date: nowdate})
+
+    let afterDay = days.setTime(days.getTime() - 24 * 60 * 60 * 1000);
+    let afterDayDate = new Date(afterDay)
+    var s = afterDayDate.getFullYear() + "-" + (afterDayDate.getMonth()) + "-" + afterDayDate.getDate();
+    console.log('current_load_Date' + this.data.current_load_Date + 'nowdate' + nowdate + 'afterDay' + s);
   },
 
   contentItemTapAction : function (e){
@@ -80,6 +109,7 @@ Page({
 
   getChannelDataInfo : function (dataLists){
     var that = this;
+    console.log('request time info:' + dataLists)
     var content_ListsTemp = this.data.content_Lists
     
     if (dataLists.length > 0) {
@@ -88,7 +118,7 @@ Page({
           channelData: dataLists.shift()
         },
         success: (res) => {
-          // console.log('request time info:'+dataLists)
+          
           if (res.data.res === 0) {
             let data = res.data.data.content_list
             // that.getContent_List(data)
@@ -162,47 +192,6 @@ Page({
     }
   },
 
-  getVols: function (idList) {
-    let vols = this.data.vols
-
-    if (idList.length > 0) {
-      api.getVolById({
-        query: {
-          id: idList.shift()
-        },
-        success: (res) => {
-          if (res.data.res === 0) {
-            let vol = res.data.data
-
-            vol.hp_makettime = util.formatMakettime(vol.hp_makettime)
-            vols.push(vol)
-          }
-          this.getVols(idList)
-        }
-      })
-    } else {
-      this.setData({ vols })
-    }
-  },
-
-  handleChange: function (e) {
-    let current = e.detail.current
-    let volsLength = this.data.content_Lists.length
-    console.log("current page index" + current + 'volsLength' + volsLength)
-    this.setData({ current })
-    if (current === volsLength-1) {
-      let contentItem = this.data.content_Lists[volsLength-1]
-      let loadTime = contentItem.date
-      let loadTimeDate = new Date(loadTime)
-      let channelLoadTime = this.getChannelFormatDate(loadTimeDate)
-      this.data.content_Channel_DateLists.push(channelLoadTime)
-      this.getChannelDataInfo(this.data.content_Channel_DateLists)
-      this.setData({
-        current: current
-      })
-    }
-  },
-
   refreshAction : function(e){
     console.log("refresh action" + this.data.current);
     // let currentIndex = this.data.current
@@ -247,26 +236,57 @@ Page({
     console.log('catchtouchmoveAction');
   },
 
+  convertDateFromString :function (dateString) { 
+    if(dateString) {
+      var arr1 = dateString.split(" ");
+      var sdate = arr1[0].split('-');
+      var date = new Date(sdate[0], sdate[1] - 1, sdate[2]);
+      return date;
+    }
+  },
+
   //滑  
   get_index: function (e) {
 
     var crash_current = e.detail.current;
     if (crash_current === this.data.content_Lists.length - 1) {
       console.log('muisc current index ' + crash_current)
-      // let tempData = this.data.tab_tite_data;
-      // tempData.push({ "name": "1", "color": "orange", })
-      // this.setData({
-      //   tab_tite_data: tempData})
+
       let contentItem = this.data.content_Lists[crash_current]
       let loadTime = contentItem.date
-      let loadTimeDate = new Date(loadTime)
-      let channelLoadTime = this.getChannelFormatDate(loadTimeDate)
-      console.log('last page time info:' + channelLoadTime + 'loadTimeDate' + loadTimeDate)
-      this.getIndexChannelList(channelLoadTime)
+      let loadTimeDate = this.convertDateFromString(loadTime)
+
+      let afterDay = loadTimeDate.setTime(loadTimeDate.getTime() - 24 * 60 * 60 * 1000);
+      let afterDayDate = new Date(afterDay)
+      var s = afterDayDate.getFullYear() + "-" + (afterDayDate.getMonth()+1) + "-" + afterDayDate.getDate();
+      console.log('11232432loadTimeDate info :' + loadTimeDate + 'afterDay info:'+s);
+      this.data.content_Channel_DateLists.push(s);
+      this.getChannelDataInfo(this.data.content_Channel_DateLists)
     }
     this.setData({
       current: e.detail.current,
     });
   },
+
+  getTimeAfterTwoDays: function(e){
+
+    var date = new Date();
+    if (e) {
+      date.setTime(e.getTime() - 24 * 60 * 60 * 1000)
+    } 
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+  }
 
 })

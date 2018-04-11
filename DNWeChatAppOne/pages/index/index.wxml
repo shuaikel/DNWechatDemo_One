@@ -1,9 +1,9 @@
 <!--index.wxml-->
  <!-- <view class="container">  -->
      <swiper class='vol-swiper' current='{{current}}' bindchange='get_index'>
-        <swiper-item  wx:for="{{content_Lists}}">
-                  <scroll-view class='scroll-views' scroll-y="true" bindscrolltolower="bindscrolltolowerAction" scroll-x="false" enable-back-to-top="true"> 
-                <block wx:for="{{content_Lists[current].content_list}}" wx:for-index="idx" wx:key="{{id}}">
+        <swiper-item  wx:for="{{content_Lists}}" class="conetntSwiperItem">
+                  <scroll-view class='scroll-views' scroll-y="true" bindscrolltolower="bindscrolltolowerAction" enable-back-to-top="true"> 
+                <block wx:for="{{content_Lists[current].content_list}}" wx:for-index="idx" wx:key="{{date}}">
                   
                          <import src="templates/volItem.wxml" />
                          <template is="vol-item" data="{{item: content_Lists[current]['content_list'][idx]}}" />  
@@ -12,14 +12,3 @@
         </swiper-item>
     </swiper> 
  <!-- </view>  -->
-
-<!-- <swiper bindchange='get_index' current="{{current}}" class='vol-swiper'>  
-  <swiper-item wx:for="{{content_Lists}}">  
-      <scroll-view scroll-x="false" scroll-y="true" class='scroll-views'>
-        <block wx:for="{{content_Lists[current].content_list}}" wx:for-index="idx" wx:key="{{id}}"> 
-          <import src="templates/volItem.wxml" />
-          <template is="vol-item" data="{{item: content_Lists[current]['content_list'][idx]}}" /> 
-       </block>  
-    </scroll-view>
-  </swiper-item>  
-</swiper>   -->
