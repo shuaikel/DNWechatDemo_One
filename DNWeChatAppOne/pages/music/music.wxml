@@ -8,9 +8,16 @@
       </view>  
     </scroll-view>   -->
 
-    
-<swiper bindchange='get_index' current="{{c_index}}">  
-  <swiper-item wx:for="{{tab_tite_data}}" style="width:750rpx;height:650rpx;">  
-    <view style="background:{{item.color}};height:150px;">{{item.name}}</view>  
+ 
+<swiper bindchange='get_index' current="{{c_index}}" class='container'>  
+  <swiper-item wx:for="{{content_Lists}}" style="width:750rpx;height:1650rpx;" wx:key="{{id}}">  
+    <!-- <view style="background:red;height:150px;">{{item.name}}</view>   -->
+                <scroll-view class='scroll-views' scroll-y="true" bindscrolltolower="bindscrolltolowerAction" enable-back-to-top="true"> 
+                <block wx:for="{{content_Lists[c_index].content_list}}" wx:for-index="idx" wx:key="{{date}}">
+                  
+                         <import src="templates/volItem.wxml" />
+                         <template is="vol-item" data="{{item: content_Lists[current]['content_list'][idx]}}" />  
+                </block>
+             </scroll-view>   
   </swiper-item>  
 </swiper>  

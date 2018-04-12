@@ -1,7 +1,7 @@
 <!--index.wxml-->
  <!-- <view class="container">  -->
      <swiper class='vol-swiper' current='{{current}}' bindchange='get_index'>
-        <swiper-item  wx:for="{{content_Lists}}" class="conetntSwiperItem">
+        <swiper-item  wx:for="{{content_Lists}}" class="conetntSwiperItem" wx:key="{{id}}">
                   <scroll-view class='scroll-views' scroll-y="true" bindscrolltolower="bindscrolltolowerAction" enable-back-to-top="true"> 
                 <block wx:for="{{content_Lists[current].content_list}}" wx:for-index="idx" wx:key="{{date}}">
                   
